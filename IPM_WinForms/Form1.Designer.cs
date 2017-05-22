@@ -38,12 +38,23 @@
             this.columnHeaderMerkmalKennung = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderMerkmalTyp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderMerkmalEinheit = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderLfdNummer = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.textBoxZeileStart = new System.Windows.Forms.TextBox();
+            this.textBoxZeileEnde = new System.Windows.Forms.TextBox();
+            this.columnHeaderQuelle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderWerteBereich = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderZusatzInfoMerkmal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderMerkmalNummer = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderStatusKennung = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderEinheit = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderBeispiel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderZeilenNr = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.labelZeilenNrStart = new System.Windows.Forms.Label();
+            this.labelZeilenNrEnde = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonOeffnen
             // 
-            this.buttonOeffnen.Location = new System.Drawing.Point(12, 12);
+            this.buttonOeffnen.Location = new System.Drawing.Point(12, 137);
             this.buttonOeffnen.Name = "buttonOeffnen";
             this.buttonOeffnen.Size = new System.Drawing.Size(75, 23);
             this.buttonOeffnen.TabIndex = 0;
@@ -53,7 +64,7 @@
             // 
             // buttonAWLQuellcodeErzeugen
             // 
-            this.buttonAWLQuellcodeErzeugen.Location = new System.Drawing.Point(12, 402);
+            this.buttonAWLQuellcodeErzeugen.Location = new System.Drawing.Point(12, 527);
             this.buttonAWLQuellcodeErzeugen.Name = "buttonAWLQuellcodeErzeugen";
             this.buttonAWLQuellcodeErzeugen.Size = new System.Drawing.Size(148, 23);
             this.buttonAWLQuellcodeErzeugen.TabIndex = 2;
@@ -63,75 +74,142 @@
             // exelListView
             // 
             this.exelListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderLfdNummer,
+            this.columnHeaderZeilenNr,
             this.columnHeaderDatensatz,
             this.columnHeaderArbeitsfolge,
             this.columnHeaderBeschreibung,
+            this.columnHeaderQuelle,
+            this.columnHeaderWerteBereich,
             this.columnHeaderAufloesung,
             this.columnHeaderMerkmalKennung,
+            this.columnHeaderZusatzInfoMerkmal,
+            this.columnHeaderMerkmalNummer,
             this.columnHeaderMerkmalTyp,
-            this.columnHeaderMerkmalEinheit});
-            this.exelListView.Location = new System.Drawing.Point(12, 41);
+            this.columnHeaderMerkmalEinheit,
+            this.columnHeaderStatusKennung,
+            this.columnHeaderEinheit,
+            this.columnHeaderBeispiel});
+            this.exelListView.Location = new System.Drawing.Point(12, 166);
             this.exelListView.Name = "exelListView";
-            this.exelListView.Size = new System.Drawing.Size(760, 355);
+            this.exelListView.Size = new System.Drawing.Size(1254, 355);
             this.exelListView.TabIndex = 3;
             this.exelListView.UseCompatibleStateImageBehavior = false;
             this.exelListView.View = System.Windows.Forms.View.Details;
             // 
             // columnHeaderDatensatz
             // 
-            this.columnHeaderDatensatz.DisplayIndex = 0;
             this.columnHeaderDatensatz.Text = "Datensatz";
             // 
             // columnHeaderArbeitsfolge
             // 
-            this.columnHeaderArbeitsfolge.DisplayIndex = 1;
             this.columnHeaderArbeitsfolge.Text = "Arbeitsfolge";
             this.columnHeaderArbeitsfolge.Width = 130;
             // 
             // columnHeaderBeschreibung
             // 
-            this.columnHeaderBeschreibung.DisplayIndex = 2;
             this.columnHeaderBeschreibung.Text = "Beschreibung";
             this.columnHeaderBeschreibung.Width = 200;
             // 
             // columnHeaderAufloesung
             // 
-            this.columnHeaderAufloesung.DisplayIndex = 3;
             this.columnHeaderAufloesung.Text = "Auflösung (Float)";
             this.columnHeaderAufloesung.Width = 100;
             // 
             // columnHeaderMerkmalKennung
             // 
-            this.columnHeaderMerkmalKennung.DisplayIndex = 4;
             this.columnHeaderMerkmalKennung.Text = "Merkmalkennung";
             this.columnHeaderMerkmalKennung.Width = 100;
             // 
             // columnHeaderMerkmalTyp
             // 
-            this.columnHeaderMerkmalTyp.DisplayIndex = 5;
             this.columnHeaderMerkmalTyp.Text = "Typ";
             // 
             // columnHeaderMerkmalEinheit
             // 
-            this.columnHeaderMerkmalEinheit.DisplayIndex = 6;
             this.columnHeaderMerkmalEinheit.Text = "Einheit";
             // 
-            // columnHeaderLfdNummer
+            // textBoxZeileStart
             // 
-            this.columnHeaderLfdNummer.Text = "Lfd Nr";
+            this.textBoxZeileStart.Location = new System.Drawing.Point(12, 25);
+            this.textBoxZeileStart.Name = "textBoxZeileStart";
+            this.textBoxZeileStart.Size = new System.Drawing.Size(100, 20);
+            this.textBoxZeileStart.TabIndex = 4;
+            this.textBoxZeileStart.TextChanged += new System.EventHandler(this.textBoxZeileStart_TextChanged);
+            // 
+            // textBoxZeileEnde
+            // 
+            this.textBoxZeileEnde.Location = new System.Drawing.Point(135, 25);
+            this.textBoxZeileEnde.Name = "textBoxZeileEnde";
+            this.textBoxZeileEnde.Size = new System.Drawing.Size(100, 20);
+            this.textBoxZeileEnde.TabIndex = 5;
+            this.textBoxZeileEnde.TextChanged += new System.EventHandler(this.textBoxZeileEnde_TextChanged);
+            // 
+            // columnHeaderQuelle
+            // 
+            this.columnHeaderQuelle.Text = "Quelle";
+            // 
+            // columnHeaderWerteBereich
+            // 
+            this.columnHeaderWerteBereich.Text = "Wertebereich";
+            // 
+            // columnHeaderZusatzInfoMerkmal
+            // 
+            this.columnHeaderZusatzInfoMerkmal.Text = "Zusatz Info Merkmal";
+            // 
+            // columnHeaderMerkmalNummer
+            // 
+            this.columnHeaderMerkmalNummer.Text = "Merkmal Nummer";
+            // 
+            // columnHeaderStatusKennung
+            // 
+            this.columnHeaderStatusKennung.Text = "Status Kennung";
+            // 
+            // columnHeaderEinheit
+            // 
+            this.columnHeaderEinheit.Text = "Einheit";
+            // 
+            // columnHeaderBeispiel
+            // 
+            this.columnHeaderBeispiel.Text = "Beispiel";
+            // 
+            // columnHeaderZeilenNr
+            // 
+            this.columnHeaderZeilenNr.Text = "Zeilen-Nr.";
+            // 
+            // labelZeilenNrStart
+            // 
+            this.labelZeilenNrStart.AutoSize = true;
+            this.labelZeilenNrStart.Location = new System.Drawing.Point(12, 9);
+            this.labelZeilenNrStart.Name = "labelZeilenNrStart";
+            this.labelZeilenNrStart.Size = new System.Drawing.Size(103, 13);
+            this.labelZeilenNrStart.TabIndex = 6;
+            this.labelZeilenNrStart.Text = "Zeilen Nummer Start";
+            // 
+            // labelZeilenNrEnde
+            // 
+            this.labelZeilenNrEnde.AutoSize = true;
+            this.labelZeilenNrEnde.Location = new System.Drawing.Point(132, 9);
+            this.labelZeilenNrEnde.Name = "labelZeilenNrEnde";
+            this.labelZeilenNrEnde.Size = new System.Drawing.Size(106, 13);
+            this.labelZeilenNrEnde.TabIndex = 7;
+            this.labelZeilenNrEnde.Text = "Zeilen Nummer Ende";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 562);
+            this.ClientSize = new System.Drawing.Size(1272, 562);
+            this.Controls.Add(this.labelZeilenNrEnde);
+            this.Controls.Add(this.labelZeilenNrStart);
+            this.Controls.Add(this.textBoxZeileEnde);
+            this.Controls.Add(this.textBoxZeileStart);
             this.Controls.Add(this.exelListView);
             this.Controls.Add(this.buttonAWLQuellcodeErzeugen);
             this.Controls.Add(this.buttonOeffnen);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -147,7 +225,18 @@
         private System.Windows.Forms.ColumnHeader columnHeaderMerkmalKennung;
         private System.Windows.Forms.ColumnHeader columnHeaderMerkmalTyp;
         private System.Windows.Forms.ColumnHeader columnHeaderMerkmalEinheit;
-        private System.Windows.Forms.ColumnHeader columnHeaderLfdNummer;
+        private System.Windows.Forms.TextBox textBoxZeileStart;
+        private System.Windows.Forms.TextBox textBoxZeileEnde;
+        private System.Windows.Forms.ColumnHeader columnHeaderQuelle;
+        private System.Windows.Forms.ColumnHeader columnHeaderWerteBereich;
+        private System.Windows.Forms.ColumnHeader columnHeaderZusatzInfoMerkmal;
+        private System.Windows.Forms.ColumnHeader columnHeaderMerkmalNummer;
+        private System.Windows.Forms.ColumnHeader columnHeaderStatusKennung;
+        private System.Windows.Forms.ColumnHeader columnHeaderEinheit;
+        private System.Windows.Forms.ColumnHeader columnHeaderBeispiel;
+        private System.Windows.Forms.ColumnHeader columnHeaderZeilenNr;
+        private System.Windows.Forms.Label labelZeilenNrStart;
+        private System.Windows.Forms.Label labelZeilenNrEnde;
     }
 }
 

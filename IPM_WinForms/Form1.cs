@@ -18,6 +18,9 @@ namespace IPM_WinForms
             InitializeComponent();
         }
 
+        public int ZeilenNrStart { get; set; }
+        public int ZeilenNrEnde { get; set; }
+
         private void buttonOeffnen_Click(object sender, EventArgs e)
         {
             string pfad = " ";
@@ -29,10 +32,15 @@ namespace IPM_WinForms
                 pfad = Import.FileName;
             }
 
-            leseExceltabelleEin(pfad);
+           // int zeileNrStart = pruefeZahlAusTextbox(textBoxZeileStart, labelZeilenNrStart);
+           // int zeileNrEnde = pruefeZahlAusTextbox(textBoxZeileEnde, labelZeilenNrEnde);
+
+            leseExceltabelleEin(pfad, ZeilenNrStart, ZeilenNrEnde);
         }
 
-       private void leseExceltabelleEin(string pfad)
+       
+
+       private void leseExceltabelleEin(string pfad, int zeilenNrStart, int zeilenNrEnde)
         {
             Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
             excel.Visible = false;
@@ -40,8 +48,6 @@ namespace IPM_WinForms
 
             
             int i;
-            int zeileNrStart = 4;
-            int zeileNrEnde = 17;
 
             string datensatz,                   // Spalte B
                    arbeitsfolge,                // Spalte C
@@ -61,14 +67,12 @@ namespace IPM_WinForms
             wb = excel.Workbooks.Open(pfad);
 
             Excel.Sheets sheets = wb.Worksheets;
-            Excel.Worksheet ws = (Excel.Worksheet)sheets.get_Item("IPM_ML12");
-
-           
+            Excel.Worksheet ws = (Excel.Worksheet)sheets.get_Item("IPM_ML12");           
 
             try
             {
                 //for (i = 6; i <= excel.get_Range("I" + excel.Rows.Count, "I" + excel.Rows.Count).get_End(Excel.XlDirection.xlUp).Row; i++)
-                for (i = zeileNrStart; i <= zeileNrEnde; i++)
+                for (i = zeilenNrStart; i <= zeilenNrEnde; i++)
                 
                 {
                     Excel.Range datensatz_e = (Excel.Range)ws.get_Range("B" + i, "B" + i);
@@ -86,55 +90,44 @@ namespace IPM_WinForms
                     Excel.Range einheit_e = (Excel.Range)ws.get_Range("N" + i, "N" + i);
                     Excel.Range beispiel_e = (Excel.Range)ws.get_Range("O" + i, "O" + i);
 
+                    datensatz = pruefeExcelTabelleAufLeer(datensatz_e);                     // Spalte B
+                    arbeitsfolge = pruefeExcelTabelleAufLeer(arbeitsfolge_e);               // Spalte C
+                    beschreibung = pruefeExcelTabelleAufLeer(beschreibung_e);               // Spalte D
+                    quelle = pruefeExcelTabelleAufLeer(quelle_e);                           // Spalte E
+                    wertebereich = pruefeExcelTabelleAufLeer(wertebereich_e);               // Spalte F
+                    aufloesung = pruefeExcelTabelleAufLeer(aufloesung_e);                   // Spalte G
+                    merkmalKennung = pruefeExcelTabelleAufLeer(merkmalKennung_e);           // Spalte H
+                    zusatzInfoMerkmal = pruefeExcelTabelleAufLeer(zusatzInfoMerkmal_e);     // Spalte I
+                    merkmalNummer = pruefeExcelTabelleAufLeer(merkmalNummer_e);             // Spalte J
+                    merkmalTyp = pruefeExcelTabelleAufLeer(merkmalTyp_e);                   // Spalte K
+                    merkmalEinheit = pruefeExcelTabelleAufLeer(merkmalEinheit_e);           // Spalte L
+                    statusKennung = pruefeExcelTabelleAufLeer(satusKennung_e);              // Spalte M
+                    einheit = pruefeExcelTabelleAufLeer(einheit_e);                         // Spalte N
+                    beispiel = pruefeExcelTabelleAufLeer(beispiel_e);                       // Spalte O
 
 
+                    ListViewItem item1 = new ListViewItem();
+                        
+                    item1.SubItems.Add(datensatz);
+                    item1.SubItems.Add(arbeitsfolge);
+                    item1.SubItems.Add(beschreibung);
+                    item1.SubItems.Add(quelle);
+                    item1.SubItems.Add(wertebereich);
+                    item1.SubItems.Add(aufloesung);
+                    item1.SubItems.Add(merkmalKennung);
+                    item1.SubItems.Add(zusatzInfoMerkmal);
+                    item1.SubItems.Add(merkmalNummer);
+                    item1.SubItems.Add(merkmalTyp);
+                    item1.SubItems.Add(merkmalEinheit);
+                    item1.SubItems.Add(statusKennung);
+                    item1.SubItems.Add(einheit);
+                    item1.SubItems.Add(beispiel);
 
-
-                    datensatz = PruefeExcelTabelle(datensatz_e);                 // Spalte B
-                    arbeitsfolge = PruefeExcelTabelle(arbeitsfolge_e);                // Spalte C
-                    beschreibung = PruefeExcelTabelle(beschreibung_e);                 // Spalte D
-                    quelle = PruefeExcelTabelle(quelle_e);                    // Spalte E
-                    wertebereich = PruefeExcelTabelle(wertebereich_e);                 // Spalte F
-                    aufloesung = PruefeExcelTabelle(aufloesung_e);                   // Spalte G
-                    merkmalKennung = PruefeExcelTabelle(merkmalKennung_e);               // Spalte H
-                    zusatzInfoMerkmal = PruefeExcelTabelle(zusatzInfoMerkmal_e);            // Spalte I
-                    merkmalNummer = PruefeExcelTabelle(merkmalNummer_e);                // Spalte J
-                    merkmalTyp = PruefeExcelTabelle(merkmalTyp_e);                   // Spalte K
-                    merkmalEinheit = PruefeExcelTabelle(merkmalEinheit_e);               // Spalte L
-                    statusKennung = PruefeExcelTabelle(satusKennung_e);                // Spalte M
-                    einheit = PruefeExcelTabelle(einheit_e);                      // Spalte N
-                    beispiel = PruefeExcelTabelle(beispiel_e);                // Spalte O
-
-                    
-                        ListViewItem item1 = new ListViewItem(); //(i.ToString(), 0);
-
-                        item1.SubItems.Add(datensatz);
-                        item1.SubItems.Add(arbeitsfolge);
-                        item1.SubItems.Add(beschreibung);
-                        item1.SubItems.Add(quelle);
-                        item1.SubItems.Add(wertebereich);
-                        item1.SubItems.Add(aufloesung);
-                        item1.SubItems.Add(merkmalKennung);
-                        item1.SubItems.Add(zusatzInfoMerkmal);
-                        item1.SubItems.Add(merkmalNummer);
-                        item1.SubItems.Add(merkmalTyp);
-                        item1.SubItems.Add(merkmalEinheit);
-                        item1.SubItems.Add(statusKennung);
-                        item1.SubItems.Add(einheit);
-                        item1.SubItems.Add(beispiel);
-
-                        exelListView.Items.AddRange(new ListViewItem[] { item1 });
-                    
-
-                    
-
-                    
+                    exelListView.Items.AddRange(new ListViewItem[] { item1 });                    
                 }
 
                 // Add the ListView to the control collection.
                 this.Controls.Add(exelListView);
-                
-
 
             }
             catch (Exception e)
@@ -146,7 +139,7 @@ namespace IPM_WinForms
 
         }  
         
-        private string PruefeExcelTabelle(Excel.Range tmp_e)
+        private string pruefeExcelTabelleAufLeer(Excel.Range tmp_e)
         {
             string tmp = "";
 
@@ -160,7 +153,32 @@ namespace IPM_WinForms
                 tmp = "  ";
             }
             return tmp;
-        }    
+        }
 
+
+        private int pruefeZahlAusTextbox(TextBox tmpBox, Label tmpLabel)
+        {
+            int zahl;
+
+            while (!int.TryParse(tmpBox.Text, out zahl))
+            {
+                tmpLabel.Text = "Ungültige Zahl";
+                tmpBox.Text = "0";
+            }
+
+            zahl = Convert.ToInt16(tmpBox.Text);
+            return zahl;
+        }
+
+        private void textBoxZeileStart_TextChanged(object sender, EventArgs e)
+        {
+            ZeilenNrStart = pruefeZahlAusTextbox(textBoxZeileStart, labelZeilenNrStart);
+
+        }
+
+        private void textBoxZeileEnde_TextChanged(object sender, EventArgs e)
+        {
+            ZeilenNrEnde = pruefeZahlAusTextbox(textBoxZeileEnde, labelZeilenNrEnde);
+        }
     }
 }
